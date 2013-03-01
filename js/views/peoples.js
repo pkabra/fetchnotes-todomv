@@ -41,8 +41,6 @@ $(function () {
 	app.PeopleSelect = Backbone.View.extend({
 
 		tagName:'option',
-		// Cache the template function for a single item.
-		template: _.template($('#people-options-template').html()),
 
 		// Listen for change and re-render incase of remove.
 		initialize: function () {
@@ -50,9 +48,13 @@ $(function () {
 		},
 
 		// Re-render the options for assignment.
+		// The options only have a value attribute and inner html.
+		// We can't assign the value attribute through a template so just assign it through backbone,
+		// and then no need for a template for the option.
 		render: function () {
 			this.attributes={value: this.model.attributes.name};
-			this.$el.html(this.template(this.model.toJSON()));
+			
+			this.$el.html(this.model.attributes.name);
 			return this;
 		},
 
